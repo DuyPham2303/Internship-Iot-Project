@@ -12,8 +12,8 @@ int status = WL_IDLE_STATUS;
 PubSubClient client(wifiClient);
 boolean gpioStatus[] = {false,false,false};
 void InitWiFi();
+void Init_Thingsboard();
 void reconnect();
-void callback();
 void setup() {
  // put your setup code here, to run once:
     Serial.begin(115200);
@@ -25,8 +25,7 @@ void setup() {
     digitalWrite(D1,HIGH);
     digitalWrite(D2,HIGH);
     InitWiFi();
-    client.setServer(Thingsboard_Server,1883);
-    client.setCallback(callback);
+    Init_Thingsboard();
 }
 void loop() {
  // put your main code here, to run repeatedly:
@@ -137,4 +136,8 @@ void InitWiFi(){
         Serial.print(".");
     }
     Serial.println("Connected to AP")
+}
+void Init_Thingsboard(){
+    client.setServer(Thingsboard_Server,1883); //init thingsboard address and mqtt port
+    client.setCallback(callback);  //create a callback function to execute specific task whenever receive Json data from thingsboard server
 }

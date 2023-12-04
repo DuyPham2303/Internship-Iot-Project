@@ -5,6 +5,9 @@
 #define button1 4
 #define button2 5
 #define button3 6
+#define ADDRESS_BUTTON1 0
+#define ADDRESS_BUTTON2 4
+#define ADDRESS_BUTTON3 8
 IRsend irsend; // Pin 3 is constant define as IRsend 
 uint32_t* address = 0; // address need to be registered
 decode_results results;
@@ -44,17 +47,17 @@ void Control_Television(){
     int val3 = digitalRead(button3);
     if(val1 == LOW)
     {
-        irsend.sendNEC(EEPROM.readLong(0), 32); 
+        irsend.sendNEC(EEPROM.readLong(ADDRESS_BUTTON1), 32); 
         Serial.println("TURN ON THE TV ");
     }
     else if(val2 == LOW)
     {
-        irsend.sendNEC(EEPROM.readLong(4), 32); 
+        irsend.sendNEC(EEPROM.readLong(ADDRESS_BUTTON2), 32); 
         Serial.println("CHANNEL UP");
     } 
     else if(val3 == LOW)
     {
-        irsend.sendNEC(EEPROM.readLong(8), 32);
+        irsend.sendNEC(EEPROM.readLong(ADDRESS_BUTTON3), 32);
         Serial.println("CHANNEL DOWN");
     }
     else Serial.println("None");
